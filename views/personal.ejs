@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>Personal Profile</title>
+      <%- include('partials/header') %>
+      <link rel="stylesheet" href="/index_styles/styles.css" >    
+      <link rel="stylesheet" href="/css/modalStyles.css" > 
+      <link rel="stylesheet" href="/css/footer.css" >
+      <link rel="stylesheet" href="/css/personal.css" >
+      <style>
+            
+      </style>
+</head>
+
+<body>
+      <%- include('partials/modals') %>
+      <div class="logo_div">
+            <h1>Your Profile</h1>
+            <div style="display: flex;flex-direction: row;justify-content: space-between;" >
+                  <a style="cursor: pointer;color: #37ccf5;" href="/" ><h1>Back to home</h1></a>
+                  <a style="cursor: pointer;color: #37ccf5;" href="/logout" ><h1>Log out</h1></a>      
+            </div>
+      </div> 
+      <% if(orders.length == 0 && sessions.length == 0){  %>
+       <div class="user-sessions-none" >
+            <h1>Haven't booked any session yet!</h1>
+            <div class="readmore-btn-unq" >
+                  <a href="/services" >Book a Session now</a>
+            </div>
+       </div>
+            <%}else{ %>
+             <div class="user-sessions" >
+                 <% orders.forEach(order => { %>
+                    <div class="card">
+                        <div class="card-body">
+                          <h5 class="card-title"><%= order.toe %></h5>
+                          <p class="card-text">Timings for Sessions: <%= order.timing %></p>
+                          <p class="card-text">Total number of Sessions: <%= order.nos %></p>
+                          <a style="pointer-events: none;background-color: #37ccf5;border: none;" href="#" class="btn btn-primary">Wait For Confirmation</a>
+                        </div>
+                      </div>
+                <% }) %>
+                <% sessions.forEach(session => { %>
+                  <div class="card">
+                      <div class="card-body">
+                        <h5 class="card-title"><%= session.toe %></h5>
+                        <p class="card-text">Timings for Sessions: <%= session.timing %></p>
+                        <p class="card-text">Total number of Sessions: <%= session.nos %></p>
+                        <a  href="/joinLiveSessionSingle/<%= session.channelName %>" class="btn btn-primary">Join the Session now!</a>
+                      </div>
+                    </div>
+              <% }) %>
+              <div class="readmore-btn-unq" >
+                  <a href="/services" >Book a Session now</a>
+              </div>
+             </div>
+      <% }%>
+      
+      <!-- <%- include('partials/footer') %> -->
+      <%- include('partials/scripts') %>
+      <script>
+           
+      </script>
+      
+</body>
+</html>

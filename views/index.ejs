@@ -1,0 +1,277 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#7952b3">
+        <title>Health Highway</title>
+        <%- include('partials/header') %>
+        <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" integrity="sha512-c42qTSw/wPZ3/5LBzD+Bw5f7bSF2oxou6wEb+I/lqeaKV5FDIfMvvRp772y4jcJLKuGUOpbJMdg/BTl50fJYAw==" crossorigin="anonymous" /> -->
+        <link rel="stylesheet" href="/index_styles/styles.css" >    
+        <link rel="stylesheet" href="/css/modalStyles.css" > 
+        <link rel="stylesheet" href="/css/footer.css" >
+    </head>
+    <body onload="myOnloadedFunction()" >
+      <div id="loading" >
+      </div>
+        <div class="first" >
+            <div class="logo_div" >
+                <div class="logo_img" >
+                </div>
+                <div class="logo_txt" >
+                        <a href="/" ><p>Health Highway</p></a>
+                </div>
+                <div class="header" >
+                     <!-- bootstrap navbar starts -->
+                     <nav class="navbar navbar-expand-lg navbar-light">
+                        <button style="background-color:white;" class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                          <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                          <ul class="navbar-nav mr-auto">
+                            <li class="nav-item">
+                               <a class="nav-link" style="color: white!important;"  href="#aboutus">About Us</a>
+                            </li>
+                            <li class="nav-item">
+                               <a class="nav-link" style="color: white!important;" href="#ourjourney">Our Journey</a>
+                            </li>
+                            <li class="nav-item">
+                               <a class="nav-link" style="color: white!important;" href="/services">Classes</a>
+                            </li>
+                            <div class="social-head" >
+                               <a href="https://www.facebook.com/Health-Highway-105718737908835" target="_blank"><i class="fa fa-facebook" ></i></a>
+                            </div>
+                            <div class="social-head" >
+                              <a target="_blank" href="https://www.instagram.com/healthhighwayin/" ><i class="fa fa-instagram" ></i></a>
+                           </div>
+                            <div id="book_btn" >
+                              <% if(old == true){ %>
+                                 <% if(username.split(' ')[0].length <= 4){ %>
+                                    <a href="/personal/<%= _id %>">Hi <%= username.split(' ')[0] %></a>
+                                 <% } else { %>
+                                    <a href="/personal/<%= _id %>">Hi <%= username[0] %></a>
+                              <%} } else { %>
+                                <a style="cursor: pointer;" href="/phone" >Join us</a>
+                              <% } %>
+                              <!-- <a style="cursor: pointer;" onclick="$('#exampleModal').modal('show');" >Join us</a> -->
+                            </div>
+                          </ul>
+                        </div>
+                    </nav>
+                     <!-- bootstrap navbar ends here -->
+                </div>
+            </div>
+            <div class="tag" >
+                 <p>Taking care of your mind, body and soul. </p>
+                 <!-- <p>mind, body and soul.</p> -->
+                 <p id="tag-content">Familiarize yourself with our yoga trainers and course offering by signing up for a complimentary drop-in class now.</p>
+                 <a style="cursor: pointer;" href="/services" ><p id="book-tag" >Book a Class</p></a>
+            </div>
+        </div>
+
+        <!-- front div completed -->
+
+        <!-- Modal -->
+        <%- include('partials/modals') %>
+        <!-- my modal ends here -->
+
+        <!-- uniqueness -->
+         <section class="header-extradiv">
+           <h1 id="unq-txt1" >What makes us</h1>
+           <h1 id="unq-txt2" >UNIQUE?</h1>
+            <div class="container-fluid" >
+                <div class="row" style="background-color: white;" >
+                    <div class="extra-div col-lg-4 col-md-4 mol-12 extra-div-one " > 
+                       <div class="extra-div-in" >
+                          <div class="one-in" style="background-image: url('/images/u-1.png');" ></div>
+                          <h2>Rich Indian yoga Culture</h2>
+                          <p>Many a times, it gets difficult to find a professional <b>Yoga guru</b> nearby us, right? Dont' worry!, now we bring the rich yoga culture of Indian himalayas to your place.</p>
+                       </div>
+                    </div>
+                    <div class="extra-div col-lg-4 col-md-4 mol-12 extra-div-two " > 
+                       <div class="extra-div-in">
+                          <div class="two-in" style="background-image: url('/images/u-2.png');"></div>
+                          <h2>Acess anytime anywhere</h2>
+                          <p>Participate in <b>Live Online</b> yoga sessions from the safety and comfort of your home at your convenience. Customize and schedule your sessions as per your requirement!</p>
+                       </div>
+                   </div>
+                   <div class="extra-div col-lg-4 col-md-4 mol-12 extra-div-three " > 
+                       <div class="extra-div-in">
+                          <div class="three-in" style="background-image: url('/images/u-3.png');" ></div>
+                          <h2>Community support</h2>
+                          <p>Stay connected with millions of <b>like-minded people</b> who are in the same journey. Become part of the yogic community to make your journey in spirituality more fulfilling!</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="readmore-btn-unq" >
+                  <a href="#aboutus" >Read More</a>
+                </div>
+            </div>
+         </section>
+        <!-- unique ends  -->
+        <!-- about starts -->
+        <div class="about-div" id="aboutus" >
+            <div class="about-content" >
+               <h1>Let's Talk: What we do</h1>
+               <h1 id="abt-content-2" >ABOUT HEALTH HIGHWAY</h1>
+               <p>The art of practicing yoga holds a particular significance within Indian culture as a set of spiritual, physical, and mental exercises that hold its origins within the country and mainly in the northern parts near the Himalayas. For Example: Uttarakhand is referred to as the Land of Yoga and Ayurveda. But since majority of people in India are deprived of this richness, Health Highway is passionate about bridging this gap and is determined to change the face of Indian fitness industry ever by putting before everyone the benefits of yoga through our professional Yoga gurus.</p>
+               <!-- <div class="readmore-btn" >
+                 <a href="#" ><p>Read More</p></a>
+               </div> -->
+               <div class="explore-btn" >
+                <a href="/images/session.jpg" target="_blank" ><p>Explore how we work</p></a>
+              </div>
+            </div>
+            <div class="about-img" >
+            </div>
+        </div>
+        <div class="vd" id="classes">
+          <iframe src="https://www.youtube.com/embed/gAQhynkce_8"" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <!-- about ends -->
+        <!-- feedback starts -->
+        <div class="fdb" id="ourjourney" >
+           <h1>Our Success Stories</h1>
+           <p id="fdb-desc" >We are proud to announce that we have recently completed our first <b>10000</b> hours of live yoga sessions. And this is what some of our happy customers say about us!</p>
+           <div class="container" >
+              <div class="row" >
+                 <div class="extra-fdb col-lg-4 col-md-4 col-12"  style="cursor: pointer;" >
+                     <div>
+                        <div id="f-img" style="background-image: url('/images/p-1.png');" ></div>
+                        <div id="f-nimg" >
+                          <p id="f-p" >Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis at rerum earum aspernatur nemo fugiat aliquid nobis dicta, incidunt saepe non quidem. Eveniet aut sint odit, dolore praesentium hic quas!</p>
+                          <h1 id="f-h1" >Lorenz peterson</h1>
+                          <p id="f-city" >Rishikesh</p>
+                        </div>
+                     </div>
+                 </div>
+                 <div class="extra-fdb col-lg-4 col-md-4 col-12"  style="cursor: pointer;" >
+                  <div>
+                     <div id="f-img" style="background-image: url('/images/p-1.png');" ></div>
+                     <div id="f-nimg" >
+                       <p id="f-p" >Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis at rerum earum aspernatur nemo fugiat aliquid nobis dicta, incidunt saepe non quidem. Eveniet aut sint odit, dolore praesentium hic quas!</p>
+                       <h1 id="f-h1" >Lorenz peterson</h1>
+                       <p id="f-city" >Rishikesh</p>
+                     </div>
+                  </div>
+                </div>
+                <div class="extra-fdb col-lg-4 col-md-4 col-12" style="cursor: pointer;" >
+                  <div>
+                    <div id="f-img" style="background-image: url('/images/p-1.png');" ></div>
+                    <div id="f-nimg" >
+                      <p id="f-p" >Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis at rerum earum aspernatur nemo fugiat aliquid nobis dicta, incidunt saepe non quidem. Eveniet aut sint odit, dolore praesentium hic quas!</p>
+                      <h1 id="f-h1" >Lorenz peterson</h1>
+                      <p id="f-city" >Rishikesh</p>
+                    </div>
+                  </div>
+              </div>
+            </div>
+           </div>
+        </div>
+
+        <div class="container" >
+          <div class="listen-btn-unq">
+            <a href="https://www.youtube.com/embed/N6o0ofLu0no" >Listen More</a>
+          </div>
+        </div>
+        
+
+        <div class="download container">
+             <h1>Download our App</h1>
+             <a href="https://play.google.com/store/apps/details?id=com.healthhighway" target="_blank" ><div class="gg"></div></a>
+        </div>
+    
+        <!-- feedback ends -->
+         <div class="extra-space" >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#EAFAFF" fill-opacity="1" d="M0,64L48,106.7C96,149,192,235,288,229.3C384,224,480,128,576,80C672,32,768,32,864,53.3C960,75,1056,117,1152,112C1248,107,1344,53,1392,26.7L1440,0L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>
+         </div>
+         <!-- footer starts -->
+        
+         <%- include('partials/footer') %>
+         <!-- footer ends -->
+
+         <!-- arrow starts here -->
+         <!-- <div class="scrolltop float-right" style="cursor: pointer;" onclick="topFunction()" >
+             <i class="fa fa-arrow-up" aria-hidden="true" style="cursor: pointer;" id="myBtn" ></i>
+         </div> -->
+         <!-- <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button> -->
+         <!-- arrow ends here -->
+
+        <!-- javascript code starts here -->
+        <%- include('partials/scripts') %>
+        <script type="text/javascript">
+            $(document).ready(function(){
+              $('#exampleModal').modal('show');
+              });
+            // let myButton = document.getElementById("myBtn");
+            // window.onscroll = function(){scrollFunction()};
+            // function scrollFunction() {
+            //     if(document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            //         myButton.style.display="block";
+            //     }else
+            //     {
+            //         myButton.style.display = "none"
+            //     }
+            // }
+            // function topFunction(){
+            //     document.body.scrollTop = 0;
+            //     document.documentElement.scrollTop = 0;
+            // }
+        </script>
+        <script>
+            // function subForm (){
+            //   var name = document.getElementById('nameinput');
+            //   var email = document.getElementById('emailinput');
+            //   var contact = document.getElementById('mobileinput');
+            //   var weight = document.getElementById('weightinput');
+            //   var height = document.getElementById('heightinput');
+            //   var ailment = document.getElementById('ailmentinput');
+            //   if(name.value == '' || email.value == '' || contact.value == '')
+            //   {
+            //      alert("please first enter all your details");
+            //   }
+            //   else
+            //   {
+            //     document.getElementById("modalgifimg").style.display="block";
+            //     document.getElementById("modalp").style.display="none";
+            //     document.getElementById("modal-submit-div").style.pointerEvents="none";
+            //     $.ajax({
+            //         url:'https://api.apispreadsheets.com/data/4626/',
+            //         type:'post',
+            //         data:$("#myForm").serializeArray(),
+            //         success: function(){
+            //           alert("Congratulations, You are registered with Health Highway. We will soon get in touch with you.");
+            //           name.value = '';email.value='';contact.value='';weight.value='';height.value='';ailment.value='';
+            //           $('#exampleModal').modal('hide');
+            //         },
+            //         error: function(){
+            //           alert("There was some network issue, Please try again");
+            //           $('#exampleModal').modal('hide');
+            //         }
+            //     });
+            //   }
+            // }
+        </script>
+        <script>
+          $(document).ready(function(){
+                $('.explore-btn').magnificPopup({
+                    type: 'image',
+                    delegate: 'a'
+                });
+              });
+        </script>
+        <script>
+            var preloader = document.getElementById('loading');
+            function myOnloadedFunction(){
+               preloader.style.display="none";
+               $('.logo_img').addClass('animate__animated animate__bounceInLeft');
+               $('.logo_txt').addClass('animate__animated animate__bounceInLeft');
+               $('.tag').addClass('animate__animated animate__bounceInLeft');
+               $('.header').addClass('animate__animated animate__bounceInRight');
+               $('.first').addClass('animate__animated animate__bounceInDown');
+            }
+        </script>
+        <script>
+          console.log(document.cookie);
+        </script>
+    </body>
+</html>

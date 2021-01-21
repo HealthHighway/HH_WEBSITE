@@ -1,0 +1,80 @@
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>zoom trial</title>
+  <link type="text/css" rel="stylesheet" href="https://source.zoom.us/1.8.5/css/bootstrap.css" />
+  <link type="text/css" rel="stylesheet" href="https://source.zoom.us/1.8.5/css/react-select.css" />
+</head>
+
+<body>
+    <div id="zmmtg-root"></div>
+    <div id="aria-notify-area"></div>
+
+    <div class="ReactModalPortal"></div>
+    <div class="ReactModalPortal"></div>
+    <div class="ReactModalPortal"></div>
+    <div class="ReactModalPortal"></div>
+    <div class="global-pop-up-box"></div>
+    <div class="sharer-controlbar-container sharer-controlbar-container--hidden"></div>
+    <!-- <button onPress="getCred()" >Join meeting</button> -->
+  
+    <script src="https://source.zoom.us/1.8.5/lib/vendor/react.min.js"></script>
+    <script src="https://source.zoom.us/1.8.5/lib/vendor/react-dom.min.js"></script>
+    <script src="https://source.zoom.us/1.8.5/lib/vendor/redux.min.js"></script>
+    <script src="https://source.zoom.us/1.8.5/lib/vendor/redux-thunk.min.js"></script>
+    <script src="https://source.zoom.us/1.8.5/lib/vendor/lodash.min.js"></script>
+
+    <!-- import ZoomMtg -->
+    <script src="https://source.zoom.us/zoom-meeting-1.8.5.min.js"></script>  
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script>
+        
+        
+        const getCred = async () => {
+          await ZoomMtg.setZoomJSLib('https://dmogdx0jrul3u.cloudfront.net/1.8.5/lib', '/av'); 
+          await ZoomMtg.preLoadWasm();
+          await ZoomMtg.prepareJssdk;
+          const response = await fetch("/getcred", {
+            method : "GET",
+            mode  : "same-origin",
+          })
+          console.log(response.status);
+          const res = await response.json();
+          console.log(res)
+          ZoomMtg.init({
+            leaveUrl: "/",
+            isSupportAV: true,
+            success: (success) => {
+              console.log(success)
+
+              ZoomMtg.join({
+                signature: signature,
+                meetingNumber: meetingNumber,
+                userName: userName,
+                apiKey: apiKey,
+                userEmail: userEmail,
+                passWord: passWord,
+                success: (success) => {
+                  console.log(success)
+                },
+                error: (error) => {
+                  console.log(error)
+                }
+              })
+
+            },
+            error: (error) => {
+              console.log(error)
+            }
+          })
+          
+        }
+
+        getCred();
+        
+    </script>
+</body>
+</html>

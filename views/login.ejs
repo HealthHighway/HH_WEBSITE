@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="google-signin-client_id" content="403433220043-cbmjvt9e7fkeglihn61obq1pruickdlh.apps.googleusercontent.com">
+  <title>Secrets</title>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+  <link rel="stylesheet" href="/css/log.css">
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+</head>
+
+<body>
+<div class="container mt-5">
+  <h1 class="mb-4">Sign Up</h1>
+
+  <div class="row">
+    <div class="col-lg-8 col-md-8 col-12">
+      <div class="card">
+        <div class="card-body">
+          <form action="/login-with-ep" method="POST">
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" name="email">
+              </div>
+              <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" name="password">
+              </div>
+              <button><img src="/images/sp.gif" ></button>
+          </form>
+           <a href="/login" ><p class="mt-4 text-primary" >Already Signed up?</p></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="col-lg-4 col-md-4 col-12">
+      <div class="card">
+        <div class="card-body">
+          <a class="btn btn-block" href="/auth/google" role="button">
+            <i class="fab fa-google mr-3"></i>
+             Sign Up with Google
+          </a>
+          <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+        </div>
+      </div>
+    </div> -->
+
+  </div>
+</div> 
+
+
+</body>
+</html>

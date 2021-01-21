@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Video Call Demo</title>
+    <%- include('partials/header') %>
+    <link rel="stylesheet" href="/css/video.css" >
+    <!-- <style>
+        *{
+            padding: 0px;
+            margin: 0px;
+            box-sizing: border-box;
+            scroll-behavior: none;
+        }
+        #remote-container video{
+            height: auto;
+            position: relative !important;
+        }
+        #me{
+            position: relative;
+            width: 50vw;
+            height: 200px;
+            /* height: 100vh; */
+            margin: 0 0;
+            display: block;
+        }
+        #me video{
+            position: absolute !important;
+        }
+        #remote-container{
+            display: flex;
+        }
+    </style> -->
+</head>
+<body>
+<!-- <h1>
+    Video Call Demo<br><small style="font-size: 14pt">Powered by Agora.io</small>
+</h1> -->
+<!-- <button onclick="joinUser()" >Join the call</button> -->
+<!-- <button onclick="getDevices()" >Join the devices</button> -->
+<!-- <h4>My Feed :</h4> -->
+<div id="main">
+    <% if(authority == 'trainer'){ %>
+        <h1 id="no-remote" >User hasn't joined yet</h1>
+      <% }else{ %>
+          <h1 id="no-remote" >Trainer hasn't joined yet</h1>
+      <% } %>
+  
+    <div id="setting-div" >
+        <div id="myVideo" ></div>
+        <div id="mic-on-btn" style="color: black;" onclick="changeAudioState('on')" >
+            <i class="fa fa-2x fa-microphone" aria-hidden="true"></i>
+        </div>
+        <div id="mic-off-btn" style="color: black;" onclick="changeAudioState('off')" >
+            <i class="fa fa-2x fa-microphone-slash" aria-hidden="true"></i>
+        </div>
+        <div id="cancel-btn" onclick="cutCall()" >
+            <i class="fa fa-2x fa-phone" aria-hidden="true" style="color: red;" ></i>
+        </div>
+    </div>
+</div>
+
+<div id="no-camera" >
+   <h1>No Camera/Audio device found</h1>
+</div>
+
+<!-- <h4>Remote Feeds :</h4> -->
+
+
+<script src="https://cdn.agora.io/sdk/release/AgoraRTCSDK-3.3.1.js"></script>
+<script>
+    // document.getElementById("mic-off-btn").style.display="none";
+    var localStream=null;
+    function changeAudioState(type){
+       if(type === "on")
+       {
+            var hasMuted = localStream.muteAudio();
+            console.log("has muted : " + hasMuted);
+            document.getElementById("mic-off-btn").style.display="flex";
+            document.getElementById("mic-on-btn").style.display="none";
+       }else
+       {
+            var hasUnMuted = localStream.unmuteAudio();
+            console.log("has un muted audio : " + hasUnMuted);
+            document.getElementById("mic-on-btn").style.display="flex";
+            document.getElementById("mic-off-btn").style.display="none";
+       }
+    }
+
+   
+    
+    // Handle errors.
+    let handleError = function(err){
+            console.log("Error: ", err);
+            alert(err);
+            // window.location.replace("/");
+    };
+
+    // Query the container to which the remote stream belong.
+    // let remoteContainer = document.getElementById("remote-container");
+
+    // // Add video streams to the container.
+    // function addVideoStream(elementId){
+    //         // Creates a new div for every stream
+    //         let streamDiv = document.createElement("div");
+    //         // Assigns the elementId to the div.
+    //         streamDiv.id = elementId;
+    //         streamDiv.classList[0] = "remote-class"
+    //         // Takes care of the lateral inversion
+    //         streamDiv.style.transform = "rotateY(180deg)";
+    //         // Adds the div to the container.
+    //         remoteContainer.appendChild(streamDiv);
+    // };
+
+    // Remove the video stream from the container.
+    function removeVideoStream(elementId) {
+            let remoteDiv = document.getElementById(elementId);
+            if (remoteDiv) remoteDiv.parentNode.removeChild(remoteDiv);
+    };
+
+    let client = AgoraRTC.createClient({
+        mode: "rtc",
+        codec: "vp8",
+    });
+    client.init("2a820502a7f04b05ad918a7d9793fdf0",() => joinUser()  ,handleError)
+
+    function joinUser(){
+        console.log("client initiated");
+        client.getCameras(devices => {
+            // console.log(devices);
+            console.log(devices.length);
+            if(devices.length == 0)
+            {
+                // alert("no camera input");
+                console.log("in here")
+                document.getElementById("main").style.display="none";
+                document.getElementById("no-camera").style.display="flex"
+            }
+            else
+            {
+                document.getElementById("main").style.display="block";
+                document.getElementById("no-camera").style.display="none"
+                joinAfterDevice();
+            }
+        })
+        //listen to camera changes
+        client.on("camera-changed", function(evt) {
+           console.log("Camera Changed", evt.state, evt.device);
+           client.getCameras(devices => {
+            // console.log(devices);
+            if(devices.length == 0)
+            {
+                // alert("no camera input");
+                document.getElementById("main").style.display="none";
+                document.getElementById("no-camera").style.display="flex"
+            }
+            else
+            {
+                document.getElementById("main").style.display="block";
+                document.getElementById("no-camera").style.display="none";
+                joinAfterDevice();
+            }
+          })
+        })
+        client.on('stream-added', function (evt) {
+            console.log("stream added for new user");
+            document.getElementById("no-remote").style.display="none";
+            client.subscribe(evt.stream, handleError);
+        })
+        //When you subscribe to a stream
+        client.on('stream-subscribed', function (evt) {
+            let stream = evt.stream;
+            // let streamId = String(stream.getId());
+            // addVideoStream(streamId);
+            stream.play('main');
+        })
+        //When a person is removed from the stream
+        client.on('stream-removed', (evt) => {
+            document.getElementById("no-remote").style.display="block";
+            alert("The other member has left the room");
+            console.log("stream removed");
+            let stream = evt.stream;
+            let streamId = String(stream.getId());
+            stream.close();
+            // removeVideoStream(streamId);
+        })
+        client.on('peer-leave', (evt) => {
+            document.getElementById("no-remote").style.display="block";
+            alert("The other member has left the room");
+            let stream = evt.stream;
+            // let streamId = String(stream.getId());
+            stream.close();
+            window.location.replace("/redirected");
+            // removeVideoStream(streamId);
+        })
+        client.on("mute-audio", (evt) => {
+            console.log("remote user disabled the audio");
+        })
+        client.on("unmute-audio", (evt) => {
+            console.log("remote user reenabled the audio");
+        })
+    }
+
+    function cutCall(){
+        client.leave(function() {
+            console.log("client leaves channel");
+            window.location.replace("/redirected");
+        }, handleError)
+    }
+
+    function joinAfterDevice(){
+        console.log("in here joinafterdevice");
+        var token = '<%- token %>';
+        // console.log(token);
+        var channelName = '<%- channelName %>';
+        // console.log(channelName);
+        var uid = '<%- uid %>';
+        // console.log(uid);
+        client.join(token, channelName, uid, (uid)=>{
+            localStream = AgoraRTC.createStream({
+                streamID: uid,
+                audio: true,
+                video: true,
+                screen: false
+            });
+            console.log(localStream.hasAudio());
+            console.log("for local audio");
+            if(localStream.hasAudio())
+            {
+                document.getElementById("mic-off-btn").style.display="none";
+                document.getElementById("mic-on-btn").style.display="flex";
+            }
+            else
+            {
+                document.getElementById("mic-off-btn").style.display="flex";
+                document.getElementById("mic-on-btn").style.display="none";
+            }
+            localStream.init(function() {
+                localStream.play('myVideo');
+                client.publish(localStream, handleError);
+            },handleError);
+        }, handleError)
+     }
+
+</script>
+</body>
+</html>
+<!-- 
+client.on("camera-changed", function(evt) {
+    console.log("Camera Changed", evt.state, evt.device);
+    });
+
+    client.on("recording-device-changed", function(evt) {
+        console.log("Recording Device Changed", evt.state, evt.device);
+    });
+    client.join("0062a820502a7f04b05ad918a7d9793fdf0IADG2FHAWOhe+O36JcPywUVleD/krCbcFDQbpwXeJSiqYEOQEggAAAAAEACpE93ILaQGYAEAAQAtpAZg","myChannel", null, (uid)=>{
+
+    // Stream object associated with your web cam is initialized
+    let localStream = AgoraRTC.createStream({
+        streamID: uid,
+        audio: true,
+        video: true,
+        screen: false
+    });
+
+    // Associates the stream to the client
+    localStream.init(function() {
+
+        //Plays the localVideo
+        localStream.play('me');
+
+        //Publishes the stream to the channel
+        client.publish(localStream, handleError);
+
+    },handleError);
+
+    },handleError);
+
+   
+    client.on('stream-added', function (evt) {
+        console.log("stream added for new user");
+        client.subscribe(evt.stream, handleError);
+    });
+    //When you subscribe to a stream
+    client.on('stream-subscribed', function (evt) {
+        let stream = evt.stream;
+        let streamId = String(stream.getId());
+        addVideoStream(streamId);
+        stream.play(streamId);
+    });
+
+    //When a person is removed from the stream
+    client.on('stream-removed', (evt) => {
+        console.log("stream removed");
+        let stream = evt.stream;
+        let streamId = String(stream.getId());
+        stream.close();
+        removeVideoStream(streamId);
+    });
+    client.on('peer-leave', (evt) => {
+        let stream = evt.stream;
+        let streamId = String(stream.getId());
+        stream.close();
+        removeVideoStream(streamId);
+    }); -->

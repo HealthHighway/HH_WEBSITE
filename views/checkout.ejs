@@ -1,0 +1,286 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Check out</title>
+    <meta name="theme-color" content="#7952b3">
+    <%- include('partials/header') %>
+    <style>
+        *{
+            font-family: 'Poppins', sans-serif  ;
+            scroll-behavior: smooth;
+        }
+        .container {
+           max-width: 960px;
+        }
+
+        #sessionId {
+          display: none;
+        }
+
+        #uid {
+          display: none;
+        }
+
+        .border-top { border-top: 1px solid #e5e5e5; }
+        .border-bottom { border-bottom: 1px solid #e5e5e5; }
+        .border-top-gray { border-top-color: #adb5bd; }
+
+        .box-shadow { box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05); }
+
+        .lh-condensed { line-height: 1.25; }
+    </style>
+
+  <body class="bg-light">
+
+    <div class="container">
+      <div class="py-5 text-center">
+        <img class="d-block mx-auto mb-2" src="https://firebasestorage.googleapis.com/v0/b/healthhighway-45963.appspot.com/o/Highway%20To%20Health.png?alt=media&token=6a6a35bd-d1d2-4c19-8b75-ddd10551b789" alt="" width="80" height="72">
+        <h2 style="font-weight: bold;font-size: 1.2rem;" >Check Out</h2>
+        <p class="lead" style="font-size: 1.2rem;" >Choose timings plus days of the week to keep a live-online-yoga session with the trainer.</p>
+      </div>
+
+      <div class="row">
+        
+        <div class="col-md-12 order-md-1">
+          <h4 class="mb-3">Billing information</h4>
+          <form class="needs-validation" novalidate>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="firstName">First name</label>
+                <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
+               
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="lastName">Last name</label>
+                <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
+                
+              </div>
+            </div><br/>
+            <div class="mb-3">
+              <label for="email">Email <span>(Required for Billing)</span></label>
+              <input type="email" class="form-control" id="email" placeholder="you@example.com">
+            </div>
+            <div class="row" >
+                <div class="form-group col-md-6">
+                    <label for="timing">Choose timing for your session</label>
+                    <select class="form-control" id="timing">
+                      <option>7:00 - 8:00 AM</option>
+                      <option>8:00 - 9:00 AM</option>
+                      <option>9:00 - 10:00 AM</option>
+                      <option>10:00 - 11:00 AM</option>
+                      <option>4:00 - 5:00 PM</option>
+                      <option>5:00 - 6:00 PM</option>
+                      <option>6:00 - 7:00 PM</option>
+                      <option>7:00 - 8:00 PM</option>
+                      <option>8:00 - 9:00 PM</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="nos">Total Number of Sessions in the package</label>
+                    <select class="form-control" id="nos" onchange="changePrice()" >
+                      <option value="1" >1 Session</option>
+                      <option value="10" >10 Sessions</option>
+                      <option value="16" >16 Sessions</option>
+                      <option value="20" >20 Sessions</option>
+                      <option value="24" >24 Sessions</option>
+                      <option value="30" >30 Sessions</option>
+                    </select>
+                </div>
+            </div>
+            <div class="text-left" >
+                <p>Select Week days for doing sessions<p>
+            </div>
+            <div style="flex-wrap: wrap;" class="mb-4"  >
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="Mon">
+                    <label class="form-check-label" for="inlineCheckbox1">Sun</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+                    <label class="form-check-label" for="inlineCheckbox2">Mon</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
+                    <label class="form-check-label" for="inlineCheckbox1">Tue</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox4" value="option4">
+                    <label class="form-check-label" for="inlineCheckbox2">Wed</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox5" value="option5">
+                    <label class="form-check-label" for="inlineCheckbox1">Thurs</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox6" value="option6">
+                    <label class="form-check-label" for="inlineCheckbox2">Fri</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox7" value="option7">
+                    <label class="form-check-label" for="inlineCheckbox2">Sat</label>
+                  </div>
+            </div>
+            <div class="mb-3">
+              <label for="ailment">Any Particular Ailment<span>(Optional)</span></label>
+              <input type="text" class="form-control" id="ailment" placeholder="">
+            </div>
+            <input type="text" value="<%= id %>" name="sessionId" id="sessionId" />
+            <input type="text" value="<%= uid %>" name="uid" id="uid" />
+            <div class="text-left" >
+                <p class="text-warning" style="font-size: .7rem;">** Please note that you are allowed to change the day and timings for only one of the sessions (in case of any inconvinience from your side) and you need to inform us about that atleast 24 hrs prior to the session so that we can find you another yoga instructor<p>
+            </div>
+            <div class="text-left" >
+                <p class="text-success" style="font-size: .9rem;">** After payment a trainer will join you within 10hrs.<p>
+            </div>
+            <div class="text-left" >
+                <p class="text-secondary" style="font-size: 1rem;">Total Payable Amount : Rs <span  id="amount">170</span><p>
+            </div>
+            <button class="btn btn-primary btn-lg btn-block" id="paybtn" type="button" onclick="submitMyInfo()" >Continue to checkout</button>
+           
+          </form>
+        </div>
+      </div>
+
+      <footer class="my-5 pt-5 text-muted text-center text-small">
+        <p class="mb-1">&copy; 2020-2021   Health Highway Private Limited</p>
+        <ul class="list-inline">
+          <li class="list-inline-item"><a href="#">Privacy</a></li>
+          <li class="list-inline-item"><a href="#">Terms</a></li>
+          <li class="list-inline-item"><a href="#">Support</a></li>
+        </ul>
+      </footer>
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <%- include('partials/scripts') %>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>    
+    <script>
+         var socket = io();
+        var sessionPricing = {
+            "1" : 170,
+            "10" : 1500,
+            "16" : 2400,
+            "20" : 2800,
+            "24" : 3600,
+            "30" : 4200
+        }
+        function submitMyInfo(){
+            console.log("finction called");
+            var firstName = document.getElementById("firstName").value;
+            var lastName = document.getElementById("lastName").value;
+            var email = document.getElementById("email").value;
+            var timing = document.getElementById("timing").value;
+            var nos = document.getElementById("nos").value;
+            var ap = document.getElementById("ailment").value;
+            var inlineCheckbox1 = document.getElementById("inlineCheckbox1").checked;
+            var inlineCheckbox2 = document.getElementById("inlineCheckbox2").checked;
+            var inlineCheckbox3 = document.getElementById("inlineCheckbox3").checked;
+            var inlineCheckbox4 = document.getElementById("inlineCheckbox4").checked;
+            var inlineCheckbox5 = document.getElementById("inlineCheckbox5").checked;
+            var inlineCheckbox6 = document.getElementById("inlineCheckbox6").checked;
+            var inlineCheckbox7 = document.getElementById("inlineCheckbox7").checked;
+            if(firstName == "" || lastName == "" || timing == "" || email == "" || nos == "" || (!inlineCheckbox1 && !inlineCheckbox2 && !inlineCheckbox3 && !inlineCheckbox4 && !inlineCheckbox5 && !inlineCheckbox6 && !inlineCheckbox7 ))
+            {
+                alert("Please fill the required information regarding your Live Sessions");
+            }
+            else
+            {
+                // alert("hurrah");
+                const daysArray = [];
+                if(inlineCheckbox1)
+                {
+                   daysArray.push("Sun");
+                }
+                if(inlineCheckbox2)
+                {
+                   daysArray.push("Mon");
+                }
+                if(inlineCheckbox3)
+                {
+                   daysArray.push("Tue");
+                }
+                if(inlineCheckbox4)
+                {
+                   daysArray.push("Wed");
+                }
+                if(inlineCheckbox5)
+                {
+                   daysArray.push("Thurs");
+                }
+                if(inlineCheckbox6)
+                {
+                   daysArray.push("Fri");
+                }
+                if(inlineCheckbox7)
+                {
+                   daysArray.push("Sat");
+                }
+                socket.emit('givedata', {amount : sessionPricing[nos], ap: ap, timing, nos, daysArray, uid : document.getElementById("uid").value, sessionId : document.getElementById("sessionId").value});
+                document.getElementById("paybtn").style.pointerEvents="none";
+            }
+        }
+
+        socket.on('welcome', async (msg) => {
+             document.getElementById("paybtn").style.pointerEvents="auto"; 
+             console.log(msg);
+             var options = {
+                 "key" : "rzp_test_OxCf6l8tbLtUwm",
+                 "amount" : msg.paymentData.amount,
+                 "currency" : msg.paymentData.currency,
+                 "name": "Health Highway",
+                 "description" : "Test Transaction",
+                 "order_id" : msg.paymentData.id,
+                 "handler" : async (response) => {
+                    document.getElementById("paybtn").style.pointerEvents="none";
+                    const res = await fetch("/bookSessionAfterPay", {
+                      method  :"POST",
+                      mode : "same-origin",
+                      headers : {
+                        'Content-type' : 'application/json'
+                      },
+                      body : JSON.stringify({...msg.sessionInfo, rzid : msg.paymentData.id})
+                   });
+                   const decode = await res.json();
+                   console.log(decode);
+                   if(decode.booked)
+                   {
+                      alert("Hurrahh! your session is booked. Please wait for sometime before we map you to a trainer");
+                      window.location.replace("/"); //i need to change it to /personal
+                   }
+                   else
+                   {
+                      alert("Payment failure and Session booking failure");
+                      window.location.replace("/session-booking-failure");
+                   }
+                 },
+                 "prefill" : {
+                     name : `${firstName} ${lastName}`,
+                     email : email
+                 }
+                 
+             };
+             console.log(options);
+             var rzp1 = new Razorpay(options);
+             rzp1.open();
+             rzp1.on('payment.failed', function (response){
+                alert("Slow Network. Please try later");
+                window.location.replace("/");
+                // document.getElementById("paybtn").style.pointerEvents="auto";
+            });
+         });
+
+        function changePrice(){
+            var nos = document.getElementById("nos").value;
+            document.getElementById("amount").innerText = sessionPricing[nos];
+        }
+
+    </script>
+  </body>
+</html>

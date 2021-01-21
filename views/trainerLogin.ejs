@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <!-- <meta name="google-signin-client_id" content="403433220043-cbmjvt9e7fkeglihn61obq1pruickdlh.apps.googleusercontent.com"> -->
+  <title>Trainer Login</title>
+  <%- include('partials/header') %>
+  <link href="/css/signup.css" rel="stylesheet">
+</head>
+
+
+<body>
+
+  <img class="mb-0" src="/images/HHlogo.png" alt="" width="100" height="90" >
+  <p id="mobile" class="mb-3">Login as Yoga Instructor</p>
+  <p id="code" class="mb-5 text-white"><span class="text-danger" >**</span>Please enter a valid email address</p>
+
+  <form action="/trainerLogin" method="POST" id="number-form" class="form-signin">
+    <input type="text" id="tPhoneNumber" class="form-control" name="tPhoneNumber" placeholder="+914***" value="+91" required autofocus >
+    <input type="text" id="tid" class="form-control" name="tid" placeholder="Unique Trainer id" required>
+    <!-- <input type="text" id="password" class="form-control" value="" placeholder="Password" required> -->
+    <button type="submit" class="submit-gif-btn" >Submit</button>
+    <!-- <div class="g-signin2 google-btn" data-width="420" data-height="50" data-longtitle="true" data-onsuccess="onSignIn" data-theme="dark" style="align-self: center;" ></div> -->
+    <p class="mt-5 mb-3" style="color: white;">&copy; 2020-2021</p>
+  </form>
+  <!-- <script src="https://apis.google.com/js/platform.js" async defer></script> -->
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+<script>
+//   try{
+//         function onSignIn(googleUser) {
+//           // alert("you are already signed in");
+//         var profile = googleUser.getBasicProfile();
+//         console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+//         console.log('Name: ' + profile.getName());
+//         console.log('Image URL: ' + profile.getImageUrl());
+//         console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+//         $.post("/register-with-oe", {pu : profile.getImageUrl(), email : profile.getEmail(), username : profile.getName()}, (data, status) => {
+//               console.log(data);
+//               console.log(status);
+//               window.location.replace("/");
+//           })
+//       }
+//   }catch(err)
+//   {
+//      console.log(err);
+//      window.location.replace("/error");
+//   }
+    
+</script>
+</body>
+</html>

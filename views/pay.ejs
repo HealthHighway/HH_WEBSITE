@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Secrets</title>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+  <link rel="stylesheet" href="/css/log.css">
+  <style>
+      .pay-div{
+          width: 100vw;
+          background-color: red;
+          height: 400px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+      }
+  </style>
+</head>
+
+<body style="background-color: white;">
+  
+     <div class="pay-div">
+         <div>
+             <button onclick="askforpay()" >Pay us now</button>
+         </div>
+     </div>
+     <div style="background-color: white;" >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#00B4E7" fill-opacity="1" d="M0,192L48,208C96,224,192,256,288,224C384,192,480,96,576,53.3C672,11,768,21,864,58.7C960,96,1056,160,1152,160C1248,160,1344,96,1392,64L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>
+     </div>
+     <script src="/socket.io/socket.io.js"></script>
+     <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+     <script>
+         var socket = io();
+         function askforpay() {
+             socket.emit('givedata', {amount : 2000});
+         }
+         socket.on('welcome', async (msg) => {
+             console.log(msg);
+             var options = {
+                 "key" : "rzp_live_6jN0NWgJlmgMGF",
+                 "amount" : msg.amount,
+                 "currency" : msg.currency,
+                 "name": "Acme Corp",
+                 "description" : "Test Transaction",
+                 "order_id" : msg.id,
+                 "handler" : (response) => {
+                    alert(response.razorpay_payment_id);
+                    alert(response.razorpay_order_id);
+                    alert(response.razorpay_signature)
+                 },
+                 "prefill" : {
+                     name : "Vyom Gupta",
+                     email : "vyomgupta456@gmail.com"
+                 },
+
+             };
+             console.log(options);
+             var rzp1 = new Razorpay(options);
+             rzp1.open();
+             rzp1.on('payment.failed', function (response){
+                alert(response.error.code);
+                alert(response.error.description);
+                alert(response.error.source);
+                alert(response.error.step);
+                alert(response.error.reason);
+                alert(response.error.metadata.order_id);
+                alert(response.error.metadata.payment_id);
+            });
+         });
+
+
+
+     </script>
+</body>
+</html>

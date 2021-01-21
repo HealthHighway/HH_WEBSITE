@@ -1,0 +1,47 @@
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js" integrity="sha512-IsNh5E3eYy3tr/JiX2Yx4vsCujtkhwl7SLqgnwLNgf04Hrt9BT9SXlLlZlWx+OK4ndzAoALhsMNcCmkggjZB1w==" crossorigin="anonymous"></script>
+<script>
+    // $(document).ready(function(){
+    //     $('#exampleModal').modal('show');
+    //     });
+    function subForm (){
+            var name = document.getElementById('nameinput');
+            var email = document.getElementById('emailinput');
+            var contact = document.getElementById('mobileinput');
+            var weight = document.getElementById('weightinput');
+            var height = document.getElementById('heightinput');
+            var ailment = document.getElementById('ailmentinput');
+            if(name.value == '' || email.value == '' || contact.value == '')
+            {
+                alert("Please Enter all your details so that we can server you better");
+            }
+            else
+            {
+            document.getElementById("modalgifimg").style.display="block";
+            document.getElementById("modalp").style.display="none";
+            document.getElementById("modal-submit-div").style.pointerEvents="none";
+            $.ajax({
+                url:'https://api.apispreadsheets.com/data/4626/',
+                type:'post',
+                data:$("#myForm").serializeArray(),
+                success: function(){
+                    alert("Congratulations, You are registered with Health Highway. We will soon get in touch with you.");
+                    name.value = '';email.value='';contact.value='';weight.value='';height.value='';ailment.value='';
+                    $('#exampleModal').modal('hide');
+                    document.getElementById("modalgifimg").style.display="none";
+                    document.getElementById("modalp").style.display="block";
+                    document.getElementById("modal-submit-div").style.pointerEvents="auto";
+                },
+                error: function(){
+                    alert("There was some network issue, Please try again");
+                    $('#exampleModal').modal('hide');
+                    document.getElementById("modalgifimg").style.display="none";
+                    document.getElementById("modalp").style.display="block";
+                    document.getElementById("modal-submit-div").style.pointerEvents="auto";
+                }
+            });
+            }
+        }
+</script>

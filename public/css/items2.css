@@ -1,0 +1,457 @@
+*{
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif  ;
+    scroll-behavior: smooth;
+}
+
+/* :root {
+    --animate-duration: 8000ms;
+    --animate-delay: 0.9s;
+} */
+
+.animate__animated.animate__bounceInLeft {
+    --animate-duration: 1s;
+}
+
+.items-header-navbar{
+   width: 100%;
+   height: 60px;
+   /* padding-bottom: 10px; */
+}
+
+.banner-item
+{
+    width: 100vw;
+    height: 44rem;
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.content{
+    flex: 1;
+    height: 100%;
+    background-color: white;
+}
+
+.banner-image{
+    flex: 1.4;
+    height: 100%;
+    background-image: url('../images/b-1.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+
+.content h3{
+    font-size: 2.9rem;
+    font-weight: bold;
+    color: #2A2A2A;
+    font-family: 'Poppins', sans-serif;
+    margin-left: 4rem;
+    margin-top: 8rem;
+}
+
+.items-top-header li{
+    margin-top: .8rem!important;
+}
+
+.content p{
+    font-size: 1.1rem;
+    color: #2A2A2A;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    margin-left: 4rem;
+    margin-top: 1.4rem;
+    word-spacing: 4px;
+}
+
+.banner-btn{
+    margin-top: 4rem;
+    width: 13rem;
+    height: 3.5rem;
+    background-color: #37ccf5;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10rem;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #0dc8fb;;
+    transition: 0.5s ease;
+    margin-left: 4rem;
+    cursor: pointer;
+    text-align: center;
+}
+
+.banner-btn a{
+    font-size: 1rem;
+    color: white;
+    font-weight: 600;
+    transition: .5s ease;
+    width: 100%;
+}
+
+.banner-btn:hover{
+    background-color: white;
+    border-color: #37ccf5;
+}
+
+.banner-btn:hover a{
+    color: #37ccf5;
+}
+
+.card img{
+    width: 100%;
+    height: 270px;
+}
+
+.top-main{
+    background-color: white;
+    margin-top: 5rem;
+    margin-bottom: 6rem;
+}
+
+.card-text{
+    font-size: 1.2rem;
+    font-family: 'Poppins', sans-serif;
+    color: #3b3131;
+    word-spacing: 2px;
+}
+
+.vd
+{
+    background-color: white;
+    height: 420px;
+}
+
+@media only screen and (max-width: 810px){
+   .banner-item{
+       height: 38rem;
+   }
+   .content h3{
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #2A2A2A;
+    font-family: 'Poppins', sans-serif;
+    margin-left: 2rem;
+    margin-top: 6rem;
+  }
+  .content p{
+    font-size: 1.1rem;;
+    margin-left: 2rem;
+    margin-top: 1.4rem;
+    word-spacing: 4px;
+  }
+  .banner-btn{
+      margin-left: 2rem;
+  }
+}
+
+@media only screen and (max-width: 760px){
+    .card img{
+        height: 300px;
+    }
+}
+
+@media only screen and (max-width: 550px) {
+    /* #exampleModal p, span{
+        font-size: 1rem!important;
+    }
+
+    .modal-header{
+        height: 3rem!important;
+    }
+
+    .modal-body label, input {
+        font-size: .9rem!important;
+    }
+
+    .modal-body .form-group{
+        margin-top: -.4rem!important;
+    } */
+
+    .banner-item
+    {
+        height: 50rem;
+        flex-direction: column-reverse;
+    }
+
+    .items-top-header h4, p{
+        font-size: 1rem;
+    }
+    .items-top-header li{
+        font-size: 1rem;
+    }
+
+    .strong-text{
+        font-size: 1rem;
+        margin-left: -1rem;
+    }
+
+    .content{
+        flex: 1.3;
+        height: 100%;
+    }
+
+    .banner-image{
+        flex: 1.3;
+        width: 100%;
+        background-image: url('../images/b-1-crop.png');
+    }
+
+    .content h3{
+        font-size: 1.8rem;
+        font-weight: bold;
+        color: #2A2A2A;
+        font-family: 'Poppins', sans-serif;
+        margin-left: 1.2rem;
+        margin-top: 2.2rem;
+    }
+
+    .content p{
+        font-size: 1rem;
+        color: #2A2A2A;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 500;
+        margin-left: 1.2rem;
+        margin-top: 2rem;
+        word-spacing: 5px;
+        margin-right: 3rem;
+    }
+
+    .banner-btn{
+        margin-top: 4rem;
+        width: 13rem;
+        height: 3.5rem;
+        background-color: #37ccf5;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border-style: solid;
+        border-width: 2px;
+        border-color: #0dc8fb;;
+        transition: 0.5s ease;
+        margin-left: 1.2rem;
+    }
+
+    .banner-btn a{
+        font-size: 1rem;
+        color: white;
+        font-weight: 600;
+        transition: .5s ease;
+    }
+
+    .banner-btn:hover{
+        background-color: white;
+        border-color: #37ccf5;
+    }
+
+    .banner-btn:hover a{
+        color: #37ccf5;
+    }
+
+    .card img{
+        width: 100%;
+        height: 270px;
+    }
+
+    .items-row-start .row{
+        padding-left: 1.3rem!important;
+        padding-right: 1.3rem!important;
+    }
+
+    .top-main{
+        background-color: white;
+        margin-top: 5rem;
+        margin-bottom: 6rem;
+    }
+
+    .card-text{
+        font-size: 1.2rem;
+        font-family: 'Poppins', sans-serif;
+        color: #3b3131;
+        word-spacing: 2px;
+    }
+
+    .vd
+    {
+        background-color: white;
+        height: 420px;
+    }
+}
+
+@media only screen and (max-width: 450px) {
+    .banner-image{
+        flex: 1.2;
+        width: 100%;
+        background-image: url('../images/b-1-crop.png');
+    }
+
+    .items-row-start .row{
+        padding-left: .8rem!important;
+        padding-right: .8rem!important;
+    }
+
+    /* .modal-submit-gif-btn img{
+        height: 60%;
+      } */
+}
+
+@media only screen and (max-width: 415px) {
+    /* .modal-submit-gif-btn img{
+        height: 55%;
+    }
+
+    .modal-submit-gif-btn p{
+        padding-top: 25px;
+      } */
+
+    .banner-item{
+        height: 40rem;
+    }
+    .banner-image{
+        flex: 1.4;
+        width: 100%;
+        background-image: url('../images/b-1-crop.png');
+    }
+
+    /* .modal-body p{
+        margin-top: -.8rem!important;
+    }
+
+    .modal-body label, input, p {
+        font-size: .8rem!important;
+    }
+
+    .modal-body .form-group{
+        margin-top: -.4rem!important;
+    } */
+
+    .content{
+        flex: 1.5;
+        height: 100%;
+        width: 100%;
+    }
+
+    .contentp{
+        width: 85%;
+        font-size: .9rem!important;
+    }
+    
+    .items-row-start .row{
+        padding-left: .2rem!important;
+        padding-right: .2rem!important;
+    }
+
+    .card-text{
+        font-size: 1rem!important;
+        margin-top: -.6rem!important;
+        /* margin-bottom: -.1rem!important; */
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .card img{
+        width: 100%;
+        height: 250px;
+    }
+    .content h3{
+        font-size: 1.5rem;
+        margin-top: 2rem;
+    }
+    .contentp{
+        width: 90%;
+        font-size: .85rem!important;
+        word-spacing: .6rem!important;
+    }
+    .banner-btn{
+        margin-top: 2rem;
+        width: 11rem;
+        height: 3rem;
+    }
+    .items-row-start .row{
+        padding-left: .1rem!important;
+        padding-right: .1rem!important;
+    }
+}
+
+@media only screen and (max-width: 340px) {
+    .banner-item{
+        height: 33rem;
+    }
+    .content h3{
+        font-size: 1.3rem;
+    }
+    .contentp{
+        width: 90%;
+        font-size: .8rem!important;
+        word-spacing: .6rem!important;
+    }
+    .card img{
+        width: 100%;
+        height: 230px;
+    }
+    .card-text{
+        font-size: .9rem!important;
+        margin-top: -.6rem!important;
+    }
+    .banner-image{
+        flex: 1.4;
+    }
+    .banner-btn{
+        margin-top: 2rem;
+        width: 10rem;
+        height: 2.6rem;
+    }
+    .banner-btn a{
+        font-size: .9rem;
+    }
+
+    .items-top-header li{
+        font-size: .8rem;
+        margin-top: .8rem!important;
+    }
+
+    /* #exampleModal p, span{
+        font-size: .86rem!important;
+    }
+
+    #exampleModal .close span{
+        width: 2rem!important;
+        height: 2rem!important;
+    }
+
+    .modal-body label, input {
+        font-size: .8rem!important;
+    }
+
+    .modal-body .form-group{
+        margin-top: -.6rem!important;
+    } */
+}
+
+@media only screen and (max-width: 330px) {
+    .card img{
+        width: 100%;
+        height: 220px;
+    }
+    .items-row-start .row{
+        padding-left: 0rem!important;
+        padding-right: 0rem!important;
+    }
+} 
+
+@media only screen and (max-width: 300px) {
+    .banner-image{
+        flex: 1.3!important;
+    }
+    .card img{
+        width: 100%;
+        height: 200px;
+    }
+}

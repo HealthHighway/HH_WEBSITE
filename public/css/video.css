@@ -1,0 +1,97 @@
+*
+{
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif  ;
+    scroll-behavior: smooth;
+}
+
+#main{
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    margin: 0 0;
+    display: none;
+    background-color: black;
+    color: white;
+}
+
+#no-remote{
+    font-size: 1.2rem;
+    padding-left: 2rem;
+    padding-top: 2rem;
+}
+
+#me video{
+    position: absolute !important;
+    height: auto;
+    width: auto;
+}
+
+
+#setting-div{
+    width: 100vw;
+    height: 5rem;
+    background-color: transparent;
+    position: absolute;
+    bottom: 0rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+}
+
+#myVideo{
+    position: absolute;
+    width: 10rem;
+    height: 5rem;
+    background-color: black;
+    left: 0;
+}
+
+#mic-on-btn, #mic-off-btn, #cancel-btn{
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 5rem;
+    background-color: white;
+    margin-right: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+/* #remote-container{
+    position: absolute;
+    bottom: 0%;
+    left: 0;
+    width: 100vw;
+    height: 5rem;
+    cursor: pointer;
+    background-color: grey;
+    z-index: 10000;
+} */
+
+/* .remote-class{
+    width: 10rem;
+    height: 5rem;
+    background-color: black;
+}
+
+.remote-class video{
+    position: relative !important;
+    height: '100%';
+    width: '100%';  
+} */
+
+#no-camera{
+    background-color: black;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    display: none;
+}
