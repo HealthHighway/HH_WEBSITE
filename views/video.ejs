@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <title>Video Call Demo</title>
     <%- include('partials/header') %>
+    <link rel="stylesheet" href="/index_styles/styles.css" >  
     <link rel="stylesheet" href="/css/video.css" >
+    <link rel="icon" href="/images/Highway To Health.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
     <!-- <style>
         *{
             padding: 0px;
@@ -49,13 +52,13 @@
     <div id="setting-div" >
         <div id="myVideo" ></div>
         <div id="mic-on-btn" style="color: black;" onclick="changeAudioState('on')" >
-            <i class="fa fa-2x fa-microphone" aria-hidden="true"></i>
+            <i class="fa fa-1x fa-microphone"  aria-hidden="true"></i>
         </div>
         <div id="mic-off-btn" style="color: black;" onclick="changeAudioState('off')" >
-            <i class="fa fa-2x fa-microphone-slash" aria-hidden="true"></i>
+            <i class="fa fa-microphone-slash" aria-hidden="true"></i>
         </div>
         <div id="cancel-btn" onclick="cutCall()" >
-            <i class="fa fa-2x fa-phone" aria-hidden="true" style="color: red;" ></i>
+            <i class="fa fa-1x fa-phone"  aria-hidden="true" style="color: red;" ></i>
         </div>
     </div>
 </div>
@@ -68,6 +71,7 @@
 
 
 <script src="https://cdn.agora.io/sdk/release/AgoraRTCSDK-3.3.1.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/js/all.min.js" integrity="sha512-UwcC/iaz5ziHX7V6LjSKaXgCuRRqbTp1QHpbOJ4l1nw2/boCfZ2KlFIqBUA/uRVF0onbREnY9do8rM/uT/ilqw==" crossorigin="anonymous"></script>
 <script>
     // document.getElementById("mic-off-btn").style.display="none";
     var localStream=null;
@@ -214,7 +218,7 @@
         // console.log(token);
         var channelName = '<%- channelName %>';
         // console.log(channelName);
-        var uid = '<%- uid %>';
+        var uid = Number('<%- uid %>');
         // console.log(uid);
         client.join(token, channelName, uid, (uid)=>{
             localStream = AgoraRTC.createStream({

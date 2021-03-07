@@ -51,12 +51,20 @@
               <div class="col-md-6 mb-3">
                 <label for="firstName">First name</label>
                 <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
-               
               </div>
               <div class="col-md-6 mb-3">
                 <label for="lastName">Last name</label>
                 <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
-                
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="weight">Your weight (in Kgs)</label>
+                <input type="text" class="form-control" id="weight" placeholder="" value="" required>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="height">Your Height (in m)</label>
+                <input type="text" class="form-control" id="height" placeholder="" value="" required>
               </div>
             </div><br/>
             <div class="mb-3">
@@ -123,20 +131,30 @@
                     <label class="form-check-label" for="inlineCheckbox2">Sat</label>
                   </div>
             </div>
+            <div class="text-left" >
+              <p>Gender Preference for trainer:<p>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="male" value="male">
+              <label class="form-check-label" for="male">Male</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="female" value="female">
+              <label class="form-check-label" for="female">Female</label>
+            </div><br/><br/>
             <div class="mb-3">
               <label for="ailment">Any Particular Ailment<span>(Optional)</span></label>
               <input type="text" class="form-control" id="ailment" placeholder="">
             </div>
-            <input type="text" value="<%= id %>" name="sessionId" id="sessionId" />
-            <input type="text" value="<%= uid %>" name="uid" id="uid" />
+            
             <div class="text-left" >
-                <p class="text-warning" style="font-size: .7rem;">** Please note that you are allowed to change the day and timings for only one of the sessions (in case of any inconvinience from your side) and you need to inform us about that atleast 24 hrs prior to the session so that we can find you another yoga instructor<p>
+                <p  style="font-size: .7rem; color: orangered;">** Please note that you are allowed to change the day and timings for maximum 2 of the sessions (in case of any unpredictable situation from your side) and you need to inform us about that atleast 24 hrs prior to the session so that we can find you another yoga instructor<p>
             </div>
             <div class="text-left" >
-                <p class="text-success" style="font-size: .9rem;">** After payment a trainer will join you within 10hrs.<p>
+                <p class="text-success" style="font-size: .9rem;">** After payment a trainer will join you within 3 - 4hrs.<p>
             </div>
             <div class="text-left" >
-                <p class="text-secondary" style="font-size: 1rem;">Total Payable Amount : Rs <span  id="amount">170</span><p>
+                <p class="text-secondary" style="font-size: 1rem;">Total Payable Amount : Rs <span  id="amount">120</span><p>
             </div>
             <button class="btn btn-primary btn-lg btn-block" id="paybtn" type="button" onclick="submitMyInfo()" >Continue to checkout</button>
            
@@ -150,6 +168,7 @@
           <li class="list-inline-item"><a href="#">Privacy</a></li>
           <li class="list-inline-item"><a href="#">Terms</a></li>
           <li class="list-inline-item"><a href="#">Support</a></li>
+          <li class="list-inline-item"><a href="/">Back to Home</a></li>
         </ul>
       </footer>
     </div>
@@ -164,17 +183,18 @@
     <script>
          var socket = io();
         var sessionPricing = {
-            "1" : 170,
+            "1" : 120,
             "10" : 1500,
             "16" : 2400,
             "20" : 2800,
-            "24" : 3600,
-            "30" : 4200
+            "24" : 3500,
+            "30" : 4400
         }
         function submitMyInfo(){
-            console.log("finction called");
             var firstName = document.getElementById("firstName").value;
             var lastName = document.getElementById("lastName").value;
+            var weight = document.getElementById("weight").value;
+            var height = document.getElementById("height").value;
             var email = document.getElementById("email").value;
             var timing = document.getElementById("timing").value;
             var nos = document.getElementById("nos").value;
@@ -186,13 +206,15 @@
             var inlineCheckbox5 = document.getElementById("inlineCheckbox5").checked;
             var inlineCheckbox6 = document.getElementById("inlineCheckbox6").checked;
             var inlineCheckbox7 = document.getElementById("inlineCheckbox7").checked;
-            if(firstName == "" || lastName == "" || timing == "" || email == "" || nos == "" || (!inlineCheckbox1 && !inlineCheckbox2 && !inlineCheckbox3 && !inlineCheckbox4 && !inlineCheckbox5 && !inlineCheckbox6 && !inlineCheckbox7 ))
+            var male = document.getElementById("male").checked;
+            var female = document.getElementById("female").checked;
+            // console.log(male, female);
+            if(firstName == "" || lastName == "" || weight == '' || height == '' || timing == "" || email == "" || nos == "" || (!male && !female) || (!inlineCheckbox1 && !inlineCheckbox2 && !inlineCheckbox3 && !inlineCheckbox4 && !inlineCheckbox5 && !inlineCheckbox6 && !inlineCheckbox7))
             {
                 alert("Please fill the required information regarding your Live Sessions");
             }
             else
             {
-                // alert("hurrah");
                 const daysArray = [];
                 if(inlineCheckbox1)
                 {
@@ -222,7 +244,7 @@
                 {
                    daysArray.push("Sat");
                 }
-                socket.emit('givedata', {amount : sessionPricing[nos], ap: ap, timing, nos, daysArray, uid : document.getElementById("uid").value, sessionId : document.getElementById("sessionId").value});
+                socket.emit('givedata', {amount : sessionPricing[nos], ap: ap, timing, nos, daysArray, uid : '<%- uid %>', sessionId : '<%- id %>', weight, height, gp:male?'male':'female', name : `${firstName} ${lastName}` });
                 document.getElementById("paybtn").style.pointerEvents="none";
             }
         }

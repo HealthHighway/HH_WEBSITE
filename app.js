@@ -25,6 +25,7 @@ const {RtcTokenBuilder, RtmTokenBuilder, RtcRole, RtmRole} = require('agora-acce
 const server = http.createServer(app);
 const io = require("socket.io")(server);
 
+// const baseUrl = "https://lit-springs-71721.herokuapp.com"
 const baseUrl = "https://lit-springs-71721.herokuapp.com"
 
 const appID = '2a820502a7f04b05ad918a7d9793fdf0';
@@ -47,23 +48,9 @@ app.use(session({
     saveUninitialized: false,
     cookie: { secure: false, httpOnly : false, path : "/", maxAge : 12342424 }
 }))
-app.use((req, res, next) => {
-    console.log("first i have been called");
-    console.log(req.session);
-    if(req.session.HH_user && req.session.HH_Trainer)
-    {
-        req.session.HH_user=null;
-        req.session.HH_Trainer=null;
-    }
-    next()
-})
 
-function nocache(req, res, next) {
-    res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
-    res.header('Expires', '-1');
-    res.header('Pragma', 'no-cache');
-    next();
-  }
+
+
 
 io.on('connection', (socket) => {
     socket.on('givedata', async(msg) => {
@@ -96,8 +83,11 @@ io.on('connection', (socket) => {
 //     const token = await RtcTokenBuilder.buildTokenWithUid(appID, appCertificate, channelName, uid, role, privilegeExpiredTs);
 //     console.log("Token With Integer Number Uid: " + token);
 // })
-
+// app.get("/", (req, res) => {
+//     res.redirect("/home");
+// })
 app.get("/", (req,res) => {
+    console.log("at /");
     console.log(req.session);
     if(req.session.HH_user)
     {
@@ -118,7 +108,7 @@ app.get("/", (req,res) => {
 })
 
 
-app.get("/personal/:_id", nocache, async (req,res) => {
+app.get("/personal/:_id", async (req,res) => {
     if(req.session.HH_user)
     {
         await axios.get(baseUrl+'/mySessions/'+req.params._id)
@@ -136,21 +126,22 @@ app.get("/personal/:_id", nocache, async (req,res) => {
              .catch(err => {
                  console.log(err);
                  req.session.HH_user=null;
-                 res.redirect("/");
+                 res.redirect("/home");
              })
         }).catch(err => {
             console.log(err);
             req.session.HH_user=null;
-            res.redirect("/");
+            res.redirect("/home");
         })
     }else
     {
         req.session.HH_user=null;
-        res.redirect("/");
+        res.redirect("/home");
     }
 });
 
 app.get("/services", (req, res) => {
+    console.log("at /services");
     res.render("items");
 });
 
@@ -181,7 +172,8 @@ app.get("/services", (req, res) => {
 //     res.render("justpay", {options : data});
 // })
 
-app.get("/phone", nocache, (req, res) => {
+app.get("/phone", (req, res) => {
+    console.log("at /phone");
     console.log(req.session);
     if(req.session.HH_user)
     {
@@ -228,10 +220,12 @@ app.post("/phoneauth", async (req, res) => {
         }
         else
         {
+            console.log("nulling at /phoneauth");
             req.session.HH_user = null;
             res.redirect("/");
         }
     }).catch(err => {
+        console.log("nulling at /phoenauth catch");
         req.session.HH_user = null;
         console.log(err);
         res.redirect("/");
@@ -240,7 +234,7 @@ app.post("/phoneauth", async (req, res) => {
     res.send(resp);
 })
 
-app.get("/register-with-email", nocache, (req, res) => {
+app.get("/register-with-email", (req, res) => {
     console.log("at get register with email");
     console.log(req.session);
     if(req.session.HH_user)
@@ -251,6 +245,7 @@ app.get("/register-with-email", nocache, (req, res) => {
         }
         else
         {
+            console.log("rendering register");
             res.render("register");
         }
     }
@@ -319,21 +314,21 @@ app.post("/register-with-oe", (req,res) => {
             req.session.HH_user["_id"] = r1._id;
             req.session.HH_user["old"] = r1.old;
             req.session.HH_user["username"] = r1.username;
-            res.redirect("/");
+            res.redirect("/home");
        }
        else
        {
           req.session.HH_user = null;
-          res.redirect("/");
+          res.redirect("/home");
        }
    }).catch(err => {
         console.log(err);
         req.session.HH_user = null;
-        res.redirect("/");
+        res.redirect("/home");
    });
 });
 
-app.get("/book-a-session/:id", nocache, (req, res) => {
+app.get("/book-a-session/:id", (req, res) => {
     console.log(req.params.id);
     if(req.session.HH_user && req.session.HH_user.old)
     {
@@ -375,7 +370,7 @@ app.post("/bookSessionAfterPay", (req, res) => {
 });
 
 
-app.get("/joinLiveSessionSingle/:channelName", nocache, (req, res) => {
+app.get("/joinLiveSessionSingle/:channelName", (req, res) => {
     console.log(req.params.channelName);
     if(!req.session.HH_user)
     {
@@ -383,14 +378,14 @@ app.get("/joinLiveSessionSingle/:channelName", nocache, (req, res) => {
     }
     else if(req.session.HH_user && req.session.HH_user._id)
     {
-        fetch(baseUrl+"/getTokenForVc/"+req.session.HH_user._id+"/"+req.params.channelName, {
+        fetch(baseUrl+"/getTokenForVc/"+4321+"/"+req.params.channelName, {
             method : "GET"
         }).then(async (response) => {
             console.log(response.status);
             const r1 = await response.json();
             console.log(r1);
             // res.redirect(`/video-session/"${r1.token}"/${req.params.channelName}/${req.session.HH_user._id}`)
-            res.render("video", {token:r1.token, channelName:req.params.channelName, uid:req.session.HH_user._id, authority:"non-trainer"});
+            res.render("video", {token:r1.token, channelName:req.params.channelName, uid: '4321', authority:"non-trainer"});
         }).catch(err => {
             console.log(err);
             res.redirect("/personal/"+req.session.HH_user._id);
@@ -400,21 +395,21 @@ app.get("/joinLiveSessionSingle/:channelName", nocache, (req, res) => {
 
 
 
-app.get("/takeLiveSessionSingle/:channelName", nocache, (req, res) => {
+app.get("/takeLiveSessionSingle/:channelName", (req, res) => {
     if(!req.session.HH_Trainer)
     {
        res.redirect("/trainerLogin")
     }
     else if(req.session.HH_Trainer && req.session.HH_Trainer.tid)
     {
-        fetch(baseUrl+"/getTokenForVc/"+req.session.HH_Trainer.tid+"/"+req.params.channelName, {
+        fetch(baseUrl+"/getTokenForVc/"+1234+"/"+req.params.channelName, {
             method : "GET"
         }).then(async (response) => {
             console.log(response.status);
             const r1 = await response.json();
             console.log(r1);
             // res.redirect(`/video-session/"${r1.token}"/${req.params.channelName}/${req.session.HH_Trainer.tid}`)
-            res.render("video", {token:r1.token, channelName:req.params.channelName, uid:req.session.HH_Trainer.tid, authority:"trainer"});
+            res.render("video", {token:r1.token, channelName:req.params.channelName, uid: '1234', authority:"trainer"});
         }).catch(err => {
             console.log(err);
             res.redirect("/trainer");
@@ -442,7 +437,7 @@ app.get("/takeLiveSessionSingle/:channelName", nocache, (req, res) => {
 //     }
 // });
 
-app.get("/redirected", nocache, (req, res) => {
+app.get("/redirected", (req, res) => {
     if(req.session.HH_user && req.session.HH_Trainer)
     {
         req.session.HH_Trainer = null;
@@ -484,7 +479,7 @@ app.get("/redirected", nocache, (req, res) => {
 //     res.send({signature, apiKey, meetingNumber});
 // })
 
-app.get("/session-booking-failure", nocache, (req, res) => {
+app.get("/session-booking-failure", (req, res) => {
      req.session.HH_user = null;
      res.redirect("/");
 })
@@ -554,7 +549,7 @@ app.post("/trainerLogin", async (req, res) => {
         console.log(r1);
         if(response.status == 200)
         {
-            req.session.HH_Trainer={tid : r1._id};
+            req.session.HH_Trainer={tid : req.body.tid};
             res.redirect("/trainer");
         }
         else
@@ -568,7 +563,9 @@ app.post("/trainerLogin", async (req, res) => {
    });
 });
 
+
 app.get("/trainer", async (req, res) => {
+    console.log("/trainer got called");
     console.log(req.session);
     if(req.session.HH_Trainer && req.session.HH_user)
     {
@@ -598,6 +595,10 @@ app.get("/trainer", async (req, res) => {
     {
         res.redirect("/trainerLogin")
     }
+})
+
+app.get("*", (req,res) => {
+    res.redirect("/");
 })
 
 var port = process.env.PORT || 3000;

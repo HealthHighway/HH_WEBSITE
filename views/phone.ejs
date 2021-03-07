@@ -4,18 +4,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
-
+    <link rel="icon" href="/images/Highway To Health.png">
     <title>Register with us</title>
 
-    <!-- <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/sign-in/"> -->
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="/css/phone.css" rel="stylesheet">
-  <!-- <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=K_H-3Xux_tEc3HU9s1-DhuAVZjy6pdFRnKJRGFbtFB6PtCzDoGyYB2dJV8V3VQ_zIrbztwR-RTYFI41V04l5GncewmOHRwpQe-0ybu0kfJ8" charset="UTF-8"></script><link rel="stylesheet" crossorigin="anonymous" href="https://gc.kis.v2.scr.kaspersky-labs.com/E3E8934C-235A-4B0E-825A-35A08381A191/abn/main.css?attr=aHR0cHM6Ly9nZXRib290c3RyYXAuY29tL2RvY3MvNC4wL2V4YW1wbGVzL3NpZ24taW4v"/></head> -->
 
   <body>
     <img class="mb-4" src="/images/HHlogo.png" alt="" width="100" height="90">
@@ -26,8 +23,7 @@
       <label for="inputnumber" class="sr-only">Mobile Number</label>
       <input type="text" id="inputnumber" class="form-control" value="+91" placeholder="+9163******" required autofocus>
       <div class="mt-3" id="recaptcha-verifier" ></div>
-      <!-- <button type="button" class="btn mt-4 btn-lg btn-primary btn-block" onclick="phoneauth()" >Get the OTP</button> -->
-      <div onclick="phoneauth()" class="submit-gif-btn" id="phonediv" >
+      <div onclick="phoneauth()" class="submit-gif-btn" id="phonediv" style="pointer-events: none;" >
         <img id="phonegifimg" src="/images/sp.gif" >
         <p id="phonesubmitp" >Get the OTP</p>
       </div>
@@ -38,7 +34,6 @@
     <form id="code-form" class="form-signin">
       <label for="inputcode" class="sr-only">Enter OTP</label>
       <input type="text" id="inputcode" class="form-control" placeholder="Enter OTP" required autofocus>
-      <!-- <button type="button" class="btn mt-4 btn-lg btn-primary btn-block" onclick="verifycode()" >Confirm</button> -->
       <div onclick="verifycode()" class="submit-gif-btn" id="codediv" >
         <img id="codegifimg" src="/images/sp.gif" >
         <p id="codesubmitp" >Confirm</p>
@@ -68,11 +63,14 @@
             render();
         }
 
-        function render() {
+        async function render() {
             window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-verifier');
             recaptchaVerifier.render();
+            recaptchaVerifier.verify().then(token => {
+              console.log(token);
+              document.getElementById("phonediv").style.pointerEvents="auto";
+            })
         }
-
         
        async function phoneauth() {
            document.getElementById("phonegifimg").style.display="block";
@@ -135,7 +133,6 @@
                 window.location.replace("/register-with-email");
               }
             }).catch(err => {
-                //  alert(err);
                  window.location.replace("/auth-fail");
             })
         }
