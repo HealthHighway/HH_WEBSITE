@@ -11,15 +11,15 @@
         <link rel="stylesheet" href="/css/footer.css" >
         <link rel="icon" href="/images/Highway To Health.png">
     </head>
-    <body onload="myOnloadedFunction()" >
-      <div id="loading" >
-      </div>
+    <body>
+      <!-- <div id="loading" >
+      </div> -->
         <div class="first" >
             <div class="logo_div" >
                 <div class="logo_img" >
                 </div>
                 <div class="logo_txt" >
-                        <a href="/" ><p>Health Highway</p></a>
+                    <a href="/" ><p>Health Highway</p></a>
                 </div>
                 <div class="header" >
                      <!-- bootstrap navbar starts -->
@@ -261,9 +261,9 @@
               });
         </script>
         <script>
-            var preloader = document.getElementById('loading');
+            // var preloader = document.getElementById('loading');
             function myOnloadedFunction(){
-               preloader.style.display="none";
+              //  preloader.style.display="none";
                $('.logo_img').addClass('animate__animated animate__bounceInLeft');
                $('.logo_txt').addClass('animate__animated animate__bounceInLeft');
                $('.tag').addClass('animate__animated animate__bounceInLeft');

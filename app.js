@@ -50,6 +50,9 @@ app.use(session({
 }))
 
 
+app.get("/username", (req, res) => {
+    res.render("register");
+})
 
 
 io.on('connection', (socket) => {
@@ -600,6 +603,8 @@ app.get("/trainer", async (req, res) => {
 app.get("*", (req,res) => {
     res.redirect("/");
 })
+
+
 
 var port = process.env.PORT || 3000;
 server.listen(port, () => {
