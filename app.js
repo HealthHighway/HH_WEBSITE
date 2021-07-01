@@ -26,7 +26,8 @@ const server = http.createServer(app);
 const io = require("socket.io")(server);
 
 // const baseUrl = "https://lit-springs-71721.herokuapp.com"
-const baseUrl = "https://lit-springs-71721.herokuapp.com"
+const baseUrl = "http://13.127.204.161:5000"
+// const baseUrl = "http://192.168.29.48:80";
 
 const appID = '2a820502a7f04b05ad918a7d9793fdf0';
 const appCertificate = 'c8ee7b8a170f4ac4a028fe6580a95c3f';
@@ -610,3 +611,4 @@ var port = process.env.PORT || 3000;
 server.listen(port, () => {
     console.log(`listening at ${port}`)
 });
+
